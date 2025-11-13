@@ -3,28 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>موقع ويب بسيط</title>
+    <title>موقع ويب إخباري بسيط</title>
     <link rel="stylesheet" href="/src/style.css">
   </head>
 
   <body>
     <header>
-      <h1>مرحباً بك في موقع الويب البسيط</h1>
-      <nav>
-        <a href="#">الرئيسية</a>
-        <a href="#">حول</a>
-        <a href="#">اتصل بنا</a>
-      </nav>
+      <div class="header-content">
+        <h1>أخبار اليوم</h1>
+        <nav>
+          <a href="#">الرئيسية</a>
+          <a href="#">سياسة</a>
+          <a href="#">رياضة</a>
+          <a href="#">اقتصاد</a>
+        </nav>
+        <button id="themeToggle" aria-label="تبديل الوضع الليلي/النهاري">
+          🌙
+        </button>
+      </div>
     </header>
 
-    <main id="content">
-      <p>هذه صفحة HTML بسيطة تستخدم CSS و JavaScript.</p>
-      <button id="actionButton">اضغط هنا</button>
-      <div id="message"></div>
-    </main>
+    <div class="container">
+      <main id="main-content">
+        <h2>أحدث المقالات</h2>
+        
+        <!-- Article Card 1 -->
+        <article class="news-card">
+          <img src="/public/placeholder.svg" alt="صورة المقال الأول" class="article-image">
+          <div class="article-content">
+            <h3>عنوان المقال الأول: تطورات جديدة</h3>
+            <p>ملخص قصير للمقال الأول يتحدث عن آخر المستجدات في المنطقة...</p>
+            <a href="#" class="read-more">اقرأ المزيد</a>
+          </div>
+        </article>
+
+        <!-- Article Card 2 -->
+        <article class="news-card">
+          <img src="/public/placeholder.svg" alt="صورة المقال الثاني" class="article-image">
+          <div class="article-content">
+            <h3>عنوان المقال الثاني: تحليل اقتصادي</h3>
+            <p>نظرة عميقة على الأداء الاقتصادي العالمي وتوقعات الربع القادم...</p>
+            <a href="#" class="read-more">اقرأ المزيد</a>
+          </div>
+        </article>
+        
+      </main>
+
+      <aside id="sidebar">
+        <h2>الأكثر قراءة</h2>
+        <ul>
+          <li><a href="#">خبر عاجل: اجتماع القمة</a></li>
+          <li><a href="#">مقابلة حصرية مع وزير الخارجية</a></li>
+          <li><a href="#">نتائج مباريات الأمس</a></li>
+        </ul>
+      </aside>
+    </div>
 
     <footer>
-      <p>&copy; 2024 موقع ويب بسيط</p>
+      <p>&copy; 2024 موقع ويب إخباري بسيط</p>
     </footer>
 
     <script type="module" src="/src/script.js"></script>

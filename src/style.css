@@ -1,17 +1,55 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    text-align: right; /* RTL support */
+/* Base Styles */
+:root {
+    --bg-color-light: #f4f4f9;
+    --text-color-light: #333;
+    --card-bg-light: white;
+    --header-bg-light: #333;
+    --footer-bg-light: #ccc;
+    --link-color-light: #007bff;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    text-align: right; /* RTL support */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    --bg-color-light: #1a1a1a;
+    --text-color-light: #f4f4f9;
+    --card-bg-light: #2c2c2c;
+    --header-bg-light: #000;
+    --footer-bg-light: #444;
+    --link-color-light: #8ab4f8;
+}
+
+body.dark-mode header,
+body.dark-mode footer {
+    color: var(--text-color-light);
+}
+
+body.dark-mode .news-card {
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Header and Navigation */
 header {
-    background-color: #333;
+    background-color: var(--header-bg-light);
     color: white;
-    padding: 1em;
-    text-align: center;
+    padding: 1em 20px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
@@ -22,36 +60,140 @@ nav a {
     color: white;
     margin: 0 15px;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-main {
-    padding: 20px;
-    max-width: 800px;
+nav a:hover {
+    color: #ddd;
+}
+
+#themeToggle {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+#themeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Main Layout */
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Main content is 3 parts, sidebar is 1 part */
+    gap: 30px;
+    max-width: 1200px;
     margin: 20px auto;
-    background: white;
+    padding: 0 20px;
+}
+
+/* News Card Styling */
+.news-card {
+    display: flex;
+    background: var(--card-bg-light);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+}
+
+.article-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.article-content {
+    padding: 15px;
+}
+
+.article-content h3 {
+    margin-top: 0;
+    color: var(--link-color-light);
+}
+
+.read-more {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--link-color-light);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    background: var(--card-bg-light);
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
+#sidebar h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
 }
 
-button:hover {
-    background-color: #0056b3;
+#sidebar ul {
+    list-style: none;
+    padding: 0;
 }
 
+#sidebar li {
+    margin-bottom: 10px;
+}
+
+#sidebar a {
+    color: var(--text-color-light);
+    text-decoration: none;
+}
+
+#sidebar a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
 footer {
     text-align: center;
     padding: 1em;
-    background-color: #ccc;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    background-color: var(--footer-bg-light);
+    color: var(--text-color-light);
+    margin-top: 20px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Single column layout on small screens */
+        gap: 20px;
+    }
+
+    .news-card {
+        flex-direction: column;
+    }
+
+    .article-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    nav {
+        margin-bottom: 10px;
+    }
 }
