@@ -1,7 +1,9 @@
-import Layout from "@/components/Layout";
-import NewsCard from "@/components/NewsCard";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import Layout from '@/components/Layout';
+import NewsCard from '@/components/NewsCard';
 
-// بيانات وهمية للأخبار
+// بيانات وهمية للأخبار (نفس البيانات المستخدمة في Index.tsx)
 const dummyNews = [
   {
     id: 1,
@@ -37,18 +39,42 @@ const dummyNews = [
   },
 ];
 
-const Index = () => {
+const CategoryPage: React.FC = () => {
+  const { category } = useParams<{ category: string }>();
+  
+  // تحويل اسم الفئة من المسار إلى الاسم العربي المستخدم في البيانات الوهمية
+  const categoryMap: { [key: string]: string } = {
+    politics: 'سياسة',
+    economy: 'اقتصاد',
+    sports: 'رياضة',
+    tech: 'تكنولوجيا',
+  };
+
+  const arabicCategory = category ? categoryMap[category] : '';
+
+  const filteredNews = dummyNews.filter(
+    (article) => article.category === arabicCategory
+  );
+
   return (
     <Layout>
-      <h1 className="text-3xl font-bold mb-6 text-center">آخر الأخبار</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        أخبار فئة: {arabicCategory || 'غير محدد'}
+      </h1>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {dummyNews.map((article) => (
-          <NewsCard key={article.id} article={article} />
-        ))}
-      </div>
+      {filteredNews.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredNews.map((article) => (
+            <NewsCard key={article.id} article={article} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-lg text-muted-foreground">
+          لا توجد أخبار حاليًا في هذه الفئة.
+        </p>
+      )}
     </Layout>
   );
 };
 
-export default Index;
+export default CategoryPage;
