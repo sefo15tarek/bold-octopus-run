@@ -3,6 +3,7 @@ import { Newspaper, Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { NavLink } from 'react-router-dom';
+import SearchBar from './SearchBar'; // Import SearchBar
 
 const navItems = [
   { name: 'الرئيسية', href: '/' },
@@ -12,7 +13,12 @@ const navItems = [
   { name: 'تكنولوجيا', href: '/tech' },
 ];
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  searchTerm?: string;
+  onSearchChange?: (term: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ searchTerm, onSearchChange }) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -22,7 +28,7 @@ const Navbar: React.FC = () => {
           <span className="text-xl font-bold tracking-tight">موقع الأخبار</span>
         </div>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation (Hidden on small screens) */}
         <nav className="hidden md:flex space-x-4 rtl:space-x-reverse">
           {navItems.map((item) => (
             <NavLink
@@ -38,8 +44,15 @@ const Navbar: React.FC = () => {
             </NavLink>
           ))}
         </nav>
+        
+        {/* Search Bar (Visible on desktop, hidden on mobile) */}
+        {onSearchChange && searchTerm !== undefined && (
+          <div className="hidden lg:block">
+            <SearchBar searchTerm={searchTerm} onSearchChange={onSearchChange} />
+          </div>
+        )}
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu/Search */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
             <Button variant="outline" size="icon">
@@ -49,6 +62,12 @@ const Navbar: React.FC = () => {
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
             <div className="flex flex-col space-y-4 pt-6">
+              {/* Mobile Search Bar */}
+              {onSearchChange && searchTerm !== undefined && (
+                <SearchBar searchTerm={searchTerm} onSearchChange={onSearchChange} />
+              )}
+              
+              {/* Mobile Navigation Links */}
               {navItems.map((item) => (
                 <NavLink
                   key={item.name}

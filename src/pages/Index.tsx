@@ -1,3 +1,4 @@
+import React, { useState, useMemo } from 'react';
 import Layout from "@/components/Layout";
 import NewsCard from "@/components/NewsCard";
 
@@ -37,16 +38,38 @@ const dummyNews = [
   },
 ];
 
-const Index = () => {
+const Index: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredNews = useMemo(() => {
+    if (!searchTerm) {
+      return dummyNews;
+    }
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    return dummyNews.filter(article =>
+      article.title.toLowerCase().includes(lowerCaseSearchTerm) ||
+      article.summary.toLowerCase().includes(lowerCaseSearchTerm) ||
+      article.category.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  }, [searchTerm]);
+
   return (
-    <Layout>
-      <h1 className="text-3xl font-bold mb-6 text-center">آخر الأخبار</h1>
+    <Layout searchTerm={searchTerm} onSearchChange={setSearchTerm}>
+      <h1 className="text-3xl font-bold mb-6 text-center">
+        {searchTerm ? `نتائج البحث عن: "${searchTerm}"` : 'آخر الأخبار'}
+      </h1>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {dummyNews.map((article) => (
-          <NewsCard key={article.id} article={article} />
-        ))}
-      </div>
+      {filteredNews.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredNews.map((article) => (
+            <NewsCard key={article.id} article={article} />
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-lg text-muted-foreground">
+          عذراً، لم يتم العثور على أخبار تطابق بحثك.
+        </p>
+      )}
     </Layout>
   );
 };
