@@ -1,15 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-
-interface NewsArticle {
-  id: number;
-  title: string;
-  summary: string;
-  category: string;
-  imageUrl: string;
-  date: string;
-}
+import { NewsArticle } from '@/data/news'; // Import NewsArticle interface
 
 interface NewsCardProps {
   article: NewsArticle;

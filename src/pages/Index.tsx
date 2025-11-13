@@ -4,61 +4,10 @@ import NewsCard from "@/components/NewsCard";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft } from 'lucide-react';
-
-// بيانات وهمية للأخبار
-const dummyNews = [
-  {
-    id: 1,
-    title: "اكتشاف علمي جديد يغير فهمنا للكون",
-    summary: "أعلن فريق دولي من العلماء عن اكتشاف مذهل قد يعيد كتابة كتب الفيزياء الفلكية، حيث تم رصد ظاهرة لم يسبق لها مثيل في مجرة بعيدة.",
-    category: "تكنولوجيا",
-    imageUrl: "https://via.placeholder.com/600x400?text=Science+Discovery",
-    date: "منذ ساعة",
-  },
-  {
-    id: 2,
-    title: "أسعار النفط ترتفع بعد اجتماع منظمة أوبك+",
-    summary: "شهدت أسواق النفط العالمية ارتفاعاً ملحوظاً اليوم عقب قرار منظمة الدول المصدرة للنفط وحلفائها (أوبك+) بتثبيت مستويات الإنتاج الحالية.",
-    category: "اقتصاد",
-    imageUrl: "https://via.placeholder.com/600x400?text=Oil+Prices",
-    date: "منذ 3 ساعات",
-  },
-  {
-    id: 3,
-    title: "فوز تاريخي للمنتخب الوطني في البطولة القارية",
-    summary: "احتفل الآلاف بفوز المنتخب الوطني بلقب البطولة القارية بعد مباراة مثيرة انتهت بركلات الترجيح، مما أثار موجة من الفرح في جميع أنحاء البلاد.",
-    category: "رياضة",
-    imageUrl: "https://via.placeholder.com/600x400?text=Football+Victory",
-    date: "أمس",
-  },
-  {
-    id: 4,
-    title: "البرلمان يقر قانون الإصلاحات الضريبية الجديد",
-    summary: "صوت أعضاء البرلمان بأغلبية ساحقة لصالح قانون الإصلاحات الضريبية الذي يهدف إلى تحفيز الاستثمار وخلق فرص عمل جديدة في القطاعات الحيوية.",
-    category: "سياسة",
-    imageUrl: "https://via.placeholder.com/600x400?text=Parliament+Vote",
-    date: "منذ يومين",
-  },
-  {
-    id: 5,
-    title: "تطورات جديدة في مفاوضات السلام الإقليمية",
-    summary: "أفادت مصادر دبلوماسية بأن الجولة الأخيرة من مفاوضات السلام شهدت تقدماً ملموساً في عدة نقاط خلافية رئيسية، مع توقعات بعقد قمة قريبة.",
-    category: "سياسة",
-    imageUrl: "https://via.placeholder.com/600x400?text=Peace+Talks",
-    date: "منذ 5 ساعات",
-  },
-  {
-    id: 6,
-    title: "إطلاق هاتف ذكي جديد بميزات الذكاء الاصطناعي",
-    summary: "كشفت شركة تكنولوجيا عملاقة عن هاتفها الرائد الجديد الذي يدمج تقنيات متقدمة للذكاء الاصطناعي لتحسين تجربة المستخدم بشكل جذري.",
-    category: "تكنولوجيا",
-    imageUrl: "https://via.placeholder.com/600x400?text=AI+Smartphone",
-    date: "منذ يوم",
-  },
-];
+import { dummyNews, NewsArticle } from '@/data/news'; // Import data
 
 // مكون الخبر الرئيسي (Hero Article)
-const HeroArticle: React.FC<{ article: typeof dummyNews[0] }> = ({ article }) => (
+const HeroArticle: React.FC<{ article: NewsArticle }> = ({ article }) => (
   <a href={`/article/${article.id}`} className="block mb-8 group">
     <Card className="overflow-hidden shadow-xl transition-shadow duration-300 hover:shadow-2xl">
       <div className="grid md:grid-cols-2">
@@ -90,7 +39,7 @@ const HeroArticle: React.FC<{ article: typeof dummyNews[0] }> = ({ article }) =>
 );
 
 // مكون الشريط الجانبي للأخبار الشائعة
-const TrendingSidebar: React.FC<{ news: typeof dummyNews }> = ({ news }) => {
+const TrendingSidebar: React.FC<{ news: NewsArticle[] }> = ({ news }) => {
   // عرض أول 4 أخبار كأخبار شائعة
   const trending = news.slice(0, 4);
 
